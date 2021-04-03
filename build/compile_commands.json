@@ -1,0 +1,12 @@
+[
+{
+  "directory": "C:/Users/sabri/Desktop/TUM create/exercise/build",
+  "command": "C:\\PROGRA~1\\MINGW-~1\\X86_64~1.0-P\\mingw64\\bin\\G__~1.EXE  @CMakeFiles/exercise.dir/includes_CXX.rsp -g -o CMakeFiles\\exercise.dir\\main.cpp.obj -c \"C:\\Users\\sabri\\Desktop\\TUM create\\exercise\\main.cpp\"",
+  "file": "C:/Users/sabri/Desktop/TUM create/exercise/main.cpp"
+},
+{
+  "directory": "C:/Users/sabri/Desktop/TUM create/exercise/build",
+  "command": "C:\\PROGRA~1\\MINGW-~1\\X86_64~1.0-P\\mingw64\\bin\\G__~1.EXE  @CMakeFiles/exercise.dir/includes_CXX.rsp -g -o CMakeFiles\\exercise.dir\\src\\Vehicle.cpp.obj -c \"C:\\Users\\sabri\\Desktop\\TUM create\\exercise\\src\\Vehicle.cpp\"",
+  "file": "C:/Users/sabri/Desktop/TUM create/exercise/src/Vehicle.cpp"
+}
+]
