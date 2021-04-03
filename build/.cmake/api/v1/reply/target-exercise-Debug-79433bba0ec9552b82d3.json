@@ -53,6 +53,10 @@
 				{
 					"backtrace" : 2,
 					"path" : "C:/Users/sabri/Desktop/TUM create/exercise/src"
+				},
+				{
+					"backtrace" : 2,
+					"path" : "C:/Users/sabri/Desktop/TUM create/exercise/inc"
 				}
 			],
 			"language" : "CXX",
