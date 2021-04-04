@@ -2,6 +2,7 @@
 #include <iostream>
 #include <vector>
 #include <ctime>
+#include <cmath>
 
 using namespace std;
 
@@ -26,7 +27,22 @@ int main()
     int taxi_count; // 10 % of agents
     int buss_count; // 05 % of agents
     
-    
+    priv_count = (int)round(0.85 * agents);
+    taxi_count = (int)round(0.10 * agents);
+    buss_count = agents - priv_count - taxi_count;
+    // cout << priv_count << endl << taxi_count << endl << buss_count << endl << resolution << endl;
+    if (agents < 20)
+    {   
+        if ( ( agents <= 0 ) || ( resolution <= 0 ) )
+        {
+            cout << "step-resolution and number-of-agents must be positive(> 0) integers" << endl;
+            return 0;
+        }
+        else
+        {
+            cout << "WARNING: proportions decided may be unrepresentative due to low number of agents" << endl;
+        }
+    }
 
     /* ####################
     INIT BLOCK 
@@ -120,11 +136,15 @@ int main()
     SUMMARY BLOCK
     #################### */
 
+    for (int i = 0; i < priv_count; i++)
+    {
+        privs[i].track();
+    }
     for (int i = 0; i < taxi_count; i++)
     {
         taxis[i].track();
     }
-    for (int i = 0; i < bus_count; i++)
+    for (int i = 0; i < buss_count; i++)
     {
         buses[i].track();
     }
