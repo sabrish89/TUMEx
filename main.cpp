@@ -27,10 +27,10 @@ int main()
     int taxi_count; // 10 % of agents
     int buss_count; // 05 % of agents
     
-    priv_count = (int)round(0.85 * agents);
+    priv_count = (int)floor(0.85 * agents);
     taxi_count = (int)round(0.10 * agents);
     buss_count = agents - priv_count - taxi_count;
-    cout << priv_count << endl << taxi_count << endl << buss_count << endl << resolution << endl;
+    // cout << priv_count << endl << taxi_count << endl << buss_count << endl << resolution << endl; // for trace and debugging
     if (agents < 20)
     {   
         if ( ( agents <= 0 ) || ( resolution <= 0 ) )
@@ -48,27 +48,28 @@ int main()
     INIT BLOCK 
     #################### */
     
+    cout << endl << "SIMULATING:" << endl << endl;
     srand (static_cast <unsigned> (time(NULL))); // Master seed
     // Private vehicles
     vector<privateVehicle> privs;
     for (int i = 0; i < priv_count; i++)
     {
         privs.push_back(privateVehicle(100, rand()%(agents+100)));
-        privs[i].track();
+        // privs[i].track();
     }
     // Taxis
     vector<taxi> taxis;
     for (int i = 0; i < taxi_count; i++)
     {
         taxis.push_back(taxi(100, rand()%agents));
-        taxis[i].track();
+        // taxis[i].track();
     }
     // Buses
     vector<bus> buses;
     for (int i = 0; i < buss_count; i++)
     {
         buses.push_back(bus(100, rand()%agents));
-        buses[i].track();
+        // buses[i].track();
     }
 
     /* ####################
@@ -86,6 +87,7 @@ int main()
                 if (taxis[i].getState() > 5)
                 {
                     done_taxis++;
+                    taxis[i].printSummary(i);
                 }
                 else
                 {
@@ -102,6 +104,7 @@ int main()
                 if (buses[i].bounded() != true)
                 {
                     done_buses++;
+                    buses[i].printSummary(i);
                 }
                 else
                 {
@@ -118,6 +121,7 @@ int main()
                 if (privs[i].bounded() != true)
                 {
                     done_privs++;
+                    privs[i].printSummary(i);
                 }
                 else
                 {
@@ -138,14 +142,14 @@ int main()
 
     for (int i = 0; i < priv_count; i++)
     {
-        privs[i].track();
+        // privs[i].track();
     }
     for (int i = 0; i < taxi_count; i++)
     {
-        taxis[i].track();
+        // taxis[i].track();
     }
     for (int i = 0; i < buss_count; i++)
     {
-        buses[i].track();
+        // buses[i].track();
     }
 }

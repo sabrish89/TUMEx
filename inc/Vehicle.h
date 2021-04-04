@@ -12,12 +12,14 @@ protected:
     int th;
     int seed;
     float distance;
+    bool summary;
 
 public:
     Vehicle(float s, int seed);
     void move();
     void track();
     bool bounded();
+    void printSummary(int identifier);
 };
 
 class privateVehicle : public Vehicle
@@ -28,6 +30,7 @@ public:
     privateVehicle(int resolution, int seed);
     void move();
     void track();
+    void printSummary(int identifier);
 };
 
 class bus : public Vehicle
@@ -39,6 +42,7 @@ public:
     bus(int resolution, int seed);
     void track();
     void move();
+    void printSummary(int identifier);
 };
 
 class taxi : public Vehicle
@@ -51,6 +55,7 @@ public:
     void track();
     int getState();
     void move();
+    void printSummary(int identifier);
 };
 
 #endif

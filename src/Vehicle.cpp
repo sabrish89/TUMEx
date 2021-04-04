@@ -23,6 +23,7 @@ Note: step is an input that needs to be resolved at metres per time step duratio
     speed = 1;
     seed = seed;
     distance = 0;
+    summary = false;
 };
 
 void Vehicle::move()
@@ -82,6 +83,11 @@ bool Vehicle::bounded()
     }
 };
 
+void Vehicle::printSummary(int identifier)
+/* print summary details once complete*/
+{
+    // EMPTY - to be over-riden
+};
 
 privateVehicle::privateVehicle(int resolution, int seed) : Vehicle(resolution, seed)
 /* initialize a private vehicle with passengers 
@@ -138,6 +144,16 @@ void privateVehicle::track()
     cout << fixed << setprecision(2) << boolalpha << " X:" << x << " | Y:" << y << " | Direction:" << th 
     << " | Time:" << t << " | In scope: " << bounded() << " | Passengers:" << passengers << " | Speed: " << speed 
     << " | Distance travelled: " << distance << endl;
+};
+
+void privateVehicle::printSummary(int identifier)
+/* over-ride */
+{
+    if (summary == false)
+    {
+        cout << fixed << setprecision(2) << boolalpha << "Private Vehicle:" << identifier << " | Distance " << distance << " m" << endl;
+        summary = true;
+    }
 };
 
 bus::bus(int resolution, int seed) : Vehicle(resolution, seed)
@@ -210,10 +226,22 @@ TODO: Notify steps to be number of milliseconds per step
             {
                 passengers += rand() % static_cast <int>(capacity - passengers); // random entry [0, current_capacity]
             }
-            cout << "Passengers altered: " << passengers << " | " << t-1 << "-" << t << endl;
+            // cout << "Passengers altered: " << passengers << " | " << t-1 << "-" << t << endl; // for tracing and debugging
         }
     }
 };
+
+void bus::printSummary(int identifier)
+/* over-ride */
+{
+    if (summary == false)
+    {
+        cout << fixed << setprecision(2) << boolalpha << "Bus:" << identifier << " | Distance " << distance << " m | Current Occupancy " 
+        << (float)passengers / capacity << endl;
+        summary = true;
+    }
+};
+
 
 taxi::taxi(int resolution, int seed) : Vehicle(resolution, seed)
 /* initialize a taxi with free state 
@@ -283,7 +311,7 @@ void taxi::move()
             if (( state % 2 == 0 ) && ( state < 6 ))
             {
                 state++;
-                cout << "Status has changed to: " << state << endl;
+                // cout << "Status has changed to: " << state << endl; // for tracing and debugging
             }
         }
 
@@ -291,13 +319,13 @@ void taxi::move()
         if ( ( bounded() != true ) && ( state%2 != 0 ) ) // if instance is currently out of bounds and is hired 
         {
             state++;
-            cout << "Status has changed to: " << state << " with x " << x << " and y " << y << endl;
+            // cout << "Status has changed to: " << state << " with x " << x << " and y " << y << endl; // for tracing and debugging
             // mirror light
             /*idea: angle of incidence with plane of reflection = angle of reflection with plane of reflection
             [0, 180] X: 180-th  Y: 360-th
                 else X: 540-th  Y: 360-th
             */
-            cout << "Direction was : " << th << endl;
+            // cout << "Direction was : " << th << endl; // for tracing and debugging
             if (th <= 180)
             {
                 if ((x >= 3000) || (x <= 0))
@@ -320,13 +348,13 @@ void taxi::move()
                     th = 360 - th;
                 }
             }
-            cout << "Direction has changed to : " << th << endl;
+            // cout << "Direction has changed to : " << th << endl; // for tracing and debugging
         }
 
         // if free and out of bounds --- I segregate the two in diff if clauses for ease of case handling
         if ( ( bounded() != true ) && ( state == 0 ) )
         {
-            cout << "Direction was : " << th << endl;
+            // cout << "Direction was : " << th << endl; // for tracing and debugging
             if (th <= 180)
             {
                 if ((x >= 3000) || (x <= 0))
@@ -349,7 +377,7 @@ void taxi::move()
                     th = 360 - th;
                 }
             }
-            cout << "Direction has changed to : " << th << endl;
+            // cout << "Direction has changed to : " << th << endl; // for tracing and debugging
         }
 
         // update the hired times
@@ -357,5 +385,16 @@ void taxi::move()
         {
             t_h++;
         }
+    }
+};
+
+void taxi::printSummary(int identifier)
+/* over-ride */
+{
+    if (summary == false)
+    {
+        cout << fixed << setprecision(2) << boolalpha<< "Taxi:" << identifier << " | Distance " << distance << " m | Hired Time " 
+        << t_h*step << " sec | Free Time " << (t-t_h)*step << " sec" << endl;
+        summary = true;
     }
 };
