@@ -219,4 +219,4 @@ int main()
     cout << "Travel Time" << endl;
     cout << "Avg: " << mean(timeP, priv_count) << " sec | Std.dev: " << stdDev(timeP, priv_count, mean(timeP, priv_count)) << " sec" << endl;
 
-}
+};
