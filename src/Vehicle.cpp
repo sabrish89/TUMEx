@@ -89,6 +89,18 @@ void Vehicle::printSummary(int identifier)
     // EMPTY - to be over-riden
 };
 
+int Vehicle::getTime()
+/* getter */
+{
+    return step*t / 100;
+}
+
+float Vehicle::getDistance()
+/* getter */
+{
+    return distance;
+}
+
 privateVehicle::privateVehicle(int resolution, int seed) : Vehicle(resolution, seed)
 /* initialize a private vehicle with passengers 
 Note: resolution is the number of seconds spend per iteration - simulation time step
@@ -394,7 +406,7 @@ void taxi::printSummary(int identifier)
     if (summary == false)
     {
         cout << fixed << setprecision(2) << boolalpha<< "Taxi:" << identifier << " | Distance " << distance << " m | Hired Time " 
-        << t_h*step << " sec | Free Time " << (t-t_h)*step << " sec" << endl;
+        << t_h*step / 100 << " sec | Free Time " << (t-t_h)*step / 100 << " sec" << endl;
         summary = true;
     }
 };

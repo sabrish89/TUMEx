@@ -6,6 +6,40 @@
 
 using namespace std;
 
+float mean(float arr[], int len)
+{
+    if (len <= 0)
+    {
+        return 0;
+    }
+    else
+    {
+        float sum;
+        for (int i = 0; i < len; i++)
+        {
+            sum += arr[i];
+        }
+        return sum / len;
+    }
+};
+
+float stdDev(float arr[], int len, float mean)
+{
+    if (len <= 1)
+    {
+        return 0;
+    }
+    else
+    {
+        float sqsum;
+        for (int i = 0; i < len; i++)
+        {
+            sqsum += pow(arr[i] - mean,2);
+        }
+        return sqrt(sqsum / ( len - 1 ));
+    }
+};
+
 int main()
 {   
     /* ####################
@@ -140,16 +174,49 @@ int main()
     SUMMARY BLOCK
     #################### */
 
+    cout << endl << "SUMMARY:" << endl << endl;
+
+    float distP[priv_count];
+    float timeP[priv_count];
+
+    float distT[taxi_count];
+    float timeT[taxi_count];
+
+    float distB[buss_count];
+    float timeB[buss_count];
+
     for (int i = 0; i < priv_count; i++)
     {
-        // privs[i].track();
+        distP[i] = privs[i].getDistance();
+        timeP[i] = privs[i].getTime();
     }
     for (int i = 0; i < taxi_count; i++)
     {
-        // taxis[i].track();
+        distT[i] = taxis[i].getDistance();
+        timeT[i] = taxis[i].getTime();
     }
     for (int i = 0; i < buss_count; i++)
     {
-        // buses[i].track();
+        distB[i] = buses[i].getDistance();
+        timeB[i] = buses[i].getTime();
     }
+
+    cout << endl << "TAXIS:" << endl;
+    cout << "Trip Length" << endl;
+    cout << "Avg: " << mean(distT, taxi_count) << " m | Std.dev: " << stdDev(distT, taxi_count, mean(distT, taxi_count)) << " m" << endl;
+    cout << "Travel Time" << endl;
+    cout << "Avg: " << mean(timeT, taxi_count) << " sec | Std.dev: " << stdDev(timeT, taxi_count, mean(timeT, taxi_count)) << " sec" << endl;
+
+    cout << endl << "BUSES:" << endl;
+    cout << "Trip Length" << endl;
+    cout << "Avg: " << mean(distB, buss_count) << " m | Std.dev: " << stdDev(distB, buss_count, mean(distB, buss_count)) << " m" << endl;
+    cout << "Travel Time" << endl;
+    cout << "Avg: " << mean(timeB, buss_count) << " sec | Std.dev: " << stdDev(timeB, buss_count, mean(timeB, buss_count)) << " sec" << endl;
+
+    cout << endl << "PRIVATE VEHICLES:" << endl;
+    cout << "Trip Length" << endl;
+    cout << "Avg: " << mean(distP, priv_count) << " m | Std.dev: " << stdDev(distP, priv_count, mean(distP, priv_count)) << " m" << endl;
+    cout << "Travel Time" << endl;
+    cout << "Avg: " << mean(timeP, priv_count) << " sec | Std.dev: " << stdDev(timeP, priv_count, mean(timeP, priv_count)) << " sec" << endl;
+
 }

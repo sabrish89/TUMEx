@@ -20,6 +20,8 @@ public:
     void track();
     bool bounded();
     void printSummary(int identifier);
+    int getTime();
+    float getDistance();
 };
 
 class privateVehicle : public Vehicle
