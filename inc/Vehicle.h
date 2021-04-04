@@ -10,9 +10,10 @@ protected:
     int speed;
     int t;
     int th;
+    int seed;
 
 public:
-    Vehicle(float s);
+    Vehicle(float s, int seed);
     void move();
     void track();
     bool bounded();
@@ -23,7 +24,7 @@ class privateVehicle : public Vehicle
 protected:
     int passengers;
 public:
-    privateVehicle(int resolution);
+    privateVehicle(int resolution, int seed);
     void move();
     void track();
 };
@@ -34,7 +35,7 @@ protected:
     int capacity;
     int passengers;
 public:
-    bus(int resolution);
+    bus(int resolution, int seed);
     void track();
     void move();
 };
@@ -45,7 +46,7 @@ protected:
     int state; // 0,2,4 - free | 1,3,5 - hired
     int t_h;
 public:
-    taxi(int resolution);
+    taxi(int resolution, int seed);
     void track();
     int getState();
     void move();

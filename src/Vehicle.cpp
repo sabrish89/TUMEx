@@ -8,18 +8,20 @@
 
 using namespace std;
 
-Vehicle::Vehicle(float s)
+Vehicle::Vehicle(float s, int seed)
 /* Initialize a Vehicle with random co-ordinates and direction at t = 0 
 Note: step is an input that needs to be resolved at metres per time step duration in seconds
 */
 {   
-    srand (static_cast <unsigned> (time(0)));
+    //srand (static_cast <unsigned> (time(NULL)));
+    srand (seed);
     x = static_cast <float> (rand()) / (static_cast <float> (RAND_MAX/(float)3000)); // X [0, 3000]
     y = static_cast <float> (rand()) / (static_cast <float> (RAND_MAX/(float)5000)); // Y [0, 5000]
     th = rand() % static_cast <int>(360); // theta [0,360] // clockwise
     t = 0;
     step = s;
     speed = 1;
+    seed = seed;
 };
 
 void Vehicle::move()
@@ -29,6 +31,7 @@ Note: ✔TODO: there is a 5 % chance of a direction change within +/-18 % with e
 {
     // float rad = ( th * 3.14159265 ) / 180.0;
     // cout << rad << " " << step << endl;
+    srand (seed);
     float stride = (float)step * speed / 3600;
     x += stride * cos ( th * 3.14159265 / 180.0 );
     y += stride * sin ( th * 3.14159265 / 180.0 );
@@ -74,11 +77,12 @@ bool Vehicle::bounded()
 };
 
 
-privateVehicle::privateVehicle(int resolution) : Vehicle(resolution)
+privateVehicle::privateVehicle(int resolution, int seed) : Vehicle(resolution, seed)
 /* initialize a private vehicle with passengers 
 Note: resolution is the number of seconds spend per iteration - simulation time step
 */
 {   
+    srand (seed);  
     passengers =  1 + rand() % static_cast <int>(4); // passengers [1, 4] in number
     speed = 30 + rand() % static_cast <int>(20); // speed [30, 50] in mph
 };
@@ -90,6 +94,7 @@ void privateVehicle::move()
     // Update only if its active
     if ( bounded() == true )
     {
+        srand (seed);
         float stride = (float)step * speed / 3600;
         x += stride * cos ( th * 3.14159265 / 180.0 );
         y += stride * sin ( th * 3.14159265 / 180.0 );
@@ -123,11 +128,12 @@ void privateVehicle::track()
     << " | Time:" << t << " | In scope: " << bounded() << " | Passengers:" << passengers << " | Speed: " << speed << endl;
 };
 
-bus::bus(int resolution) : Vehicle(resolution)
+bus::bus(int resolution, int seed) : Vehicle(resolution, seed)
 /* initialize a bus with capacity 
 Note: resolution is the number of seconds spend per iteration - simulation time step
 */
 {   
+    srand (seed);
     capacity =  15 + rand() % static_cast <int>(35); // passengers [15, 50] in number
     speed = 20 + rand() % static_cast <int>(10); // speed [20, 30] in mph
     passengers = 0; // initialize with no passengers
@@ -149,6 +155,7 @@ TODO: Notify steps to be number of milliseconds per step
     // Only update if its active
     if ( bounded() == true )
     {
+        // srand (seed);
         float stride = (float)( step * speed ) / 3600;
         x += stride * cos ( th * 3.14159265 / 180.0 );
         y += stride * sin ( th * 3.14159265 / 180.0 );
@@ -191,11 +198,12 @@ TODO: Notify steps to be number of milliseconds per step
     }
 };
 
-taxi::taxi(int resolution) : Vehicle(resolution)
+taxi::taxi(int resolution, int seed) : Vehicle(resolution, seed)
 /* initialize a taxi with free state 
 Note: resolution is the number of seconds spend per iteration - simulation time step
 */
 {   
+    srand (seed);
     speed = 40 + rand() % static_cast <int>(20); // speed [40, 60] in mph
     state = 0;
     t_h = 0;
@@ -221,6 +229,7 @@ void taxi::move()
 {
     if (state < 6) // only update if its active
     {   
+        // srand (seed);
         float stride = (float)( step * speed ) / 3600;
         x += stride * cos ( th * 3.14159265 / 180.0 );
         y += stride * sin ( th * 3.14159265 / 180.0 );
