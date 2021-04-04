@@ -30,7 +30,7 @@ int main()
     priv_count = (int)round(0.85 * agents);
     taxi_count = (int)round(0.10 * agents);
     buss_count = agents - priv_count - taxi_count;
-    // cout << priv_count << endl << taxi_count << endl << buss_count << endl << resolution << endl;
+    cout << priv_count << endl << taxi_count << endl << buss_count << endl << resolution << endl;
     if (agents < 20)
     {   
         if ( ( agents <= 0 ) || ( resolution <= 0 ) )
@@ -53,7 +53,7 @@ int main()
     vector<privateVehicle> privs;
     for (int i = 0; i < priv_count; i++)
     {
-        privs.push_back(privateVehicle(100, rand()%agents));
+        privs.push_back(privateVehicle(100, rand()%(agents+100)));
         privs[i].track();
     }
     // Taxis

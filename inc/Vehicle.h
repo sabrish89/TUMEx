@@ -11,6 +11,7 @@ protected:
     int t;
     int th;
     int seed;
+    float distance;
 
 public:
     Vehicle(float s, int seed);

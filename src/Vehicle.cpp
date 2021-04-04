@@ -22,6 +22,7 @@ Note: step is an input that needs to be resolved at metres per time step duratio
     step = s;
     speed = 1;
     seed = seed;
+    distance = 0;
 };
 
 void Vehicle::move()
@@ -32,11 +33,16 @@ Note: ✔TODO: there is a 5 % chance of a direction change within +/-18 % with e
     // float rad = ( th * 3.14159265 ) / 180.0;
     // cout << rad << " " << step << endl;
     // srand (seed);
+    float pre_x = x;
+    float pre_y = y;
+
     float stride = (float)step * speed / 3600;
     x += stride * cos ( th * 3.14159265 / 180.0 );
     y += stride * sin ( th * 3.14159265 / 180.0 );
     t++;
     
+    distance += sqrt(pow(pre_x - x, 2) + pow(pre_y - y, 2));
+
     // 5 % chance of change of direction within +/-18°
     if (rand() % static_cast <int>(100) < 5)
     {
@@ -94,11 +100,16 @@ void privateVehicle::move()
     // Update only if its active
     if ( bounded() == true )
     {
+        float pre_x = x;
+        float pre_y = y;
+        
         // srand (seed);
         float stride = (float)step * speed / 3600;
         x += stride * cos ( th * 3.14159265 / 180.0 );
         y += stride * sin ( th * 3.14159265 / 180.0 );
         t++;
+
+        distance += sqrt(pow(pre_x - x, 2) + pow(pre_y - y, 2));
 
         // 5 % chance of change of direction within +/-18°
         if (rand() % static_cast <int>(100) < 5)
@@ -125,7 +136,8 @@ void privateVehicle::track()
 /* over-ride getter */
 {   
     cout << fixed << setprecision(2) << boolalpha << " X:" << x << " | Y:" << y << " | Direction:" << th 
-    << " | Time:" << t << " | In scope: " << bounded() << " | Passengers:" << passengers << " | Speed: " << speed << endl;
+    << " | Time:" << t << " | In scope: " << bounded() << " | Passengers:" << passengers << " | Speed: " << speed 
+    << " | Distance travelled: " << distance << endl;
 };
 
 bus::bus(int resolution, int seed) : Vehicle(resolution, seed)
@@ -144,7 +156,7 @@ void bus::track()
 {   
     cout << fixed << setprecision(2) << boolalpha << " X:" << x << " | Y:" << y << " | Direction:" << th 
     << " | Time:" << t << " | In scope: " << bounded() << " | Passengers:" << passengers << " | Speed: " << speed << 
-    " | Capacity: " << capacity << endl;
+    " | Capacity: " << capacity << " | Distance travelled: " << distance << endl;
 };
 
 void bus::move()
@@ -155,12 +167,17 @@ TODO: Notify steps to be number of milliseconds per step
     // Only update if its active
     if ( bounded() == true )
     {
+        float pre_x = x;
+        float pre_y = y;
+        
         // srand (seed);
         float stride = (float)( step * speed ) / 3600;
         x += stride * cos ( th * 3.14159265 / 180.0 );
         y += stride * sin ( th * 3.14159265 / 180.0 );
         t++;
         
+        distance += sqrt(pow(pre_x - x, 2) + pow(pre_y - y, 2));
+
         // 5 % chance of change of direction within +/-18°
         if (rand() % static_cast <int>(100) < 5)
         {
@@ -214,7 +231,7 @@ void taxi::track()
 {   
     cout << fixed << setprecision(2) << boolalpha << " X:" << x << " | Y:" << y << " | Direction:" << th 
     << " | Time:" << t << " | In scope: " << bounded() << " | State:" << state << " | Speed: " << speed << 
-    " | Time hired: " << t_h << endl;
+    " | Time hired: " << t_h << " | Distance travelled: " << distance << endl;
 };
 
 int taxi::getState()
@@ -229,12 +246,17 @@ void taxi::move()
 {
     if (state < 6) // only update if its active
     {   
+        float pre_x = x;
+        float pre_y = y;
+        
         // srand (seed);
         float stride = (float)( step * speed ) / 3600;
         x += stride * cos ( th * 3.14159265 / 180.0 );
         y += stride * sin ( th * 3.14159265 / 180.0 );
         t++;
         
+        distance += sqrt(pow(pre_x - x, 2) + pow(pre_y - y, 2));
+
         // 5 % chance of change of direction within +/-18°
         if (rand() % static_cast <int>(100) < 5)
         {
