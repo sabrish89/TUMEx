@@ -37,7 +37,7 @@ Note: ✔TODO: there is a 5 % chance of a direction change within +/-18 % with e
     float pre_x = x;
     float pre_y = y;
 
-    float stride = (float)step * speed / 3600;
+    float stride = (float)step * speed * 1000 / 360000;
     x += stride * cos ( th * 3.14159265 / 180.0 );
     y += stride * sin ( th * 3.14159265 / 180.0 );
     t++;
@@ -108,7 +108,7 @@ Note: resolution is the number of seconds spend per iteration - simulation time 
 {   
     srand (seed);  
     passengers =  1 + rand() % static_cast <int>(4); // passengers [1, 4] in number
-    speed = 30 + rand() % static_cast <int>(20); // speed [30, 50] in mph
+    speed = 30 + rand() % static_cast <int>(20); // speed [30, 50] in kph
 };
 
 void privateVehicle::move()
@@ -122,7 +122,7 @@ void privateVehicle::move()
         float pre_y = y;
         
         // srand (seed);
-        float stride = (float)step * speed / 3600;
+        float stride = (float)step * speed * 1000 / 360000; // metres per millisecond
         x += stride * cos ( th * 3.14159265 / 180.0 );
         y += stride * sin ( th * 3.14159265 / 180.0 );
         t++;
@@ -175,7 +175,7 @@ Note: resolution is the number of seconds spend per iteration - simulation time 
 {   
     srand (seed);
     capacity =  15 + rand() % static_cast <int>(35); // passengers [15, 50] in number
-    speed = 20 + rand() % static_cast <int>(10); // speed [20, 30] in mph
+    speed = 20 + rand() % static_cast <int>(10); // speed [20, 30] in kph
     passengers = 0; // initialize with no passengers
 };
 
@@ -199,7 +199,7 @@ TODO: Notify steps to be number of milliseconds per step
         float pre_y = y;
         
         // srand (seed);
-        float stride = (float)( step * speed ) / 3600;
+        float stride = (float)( step * speed * 1000) / 360000; // m per millisecond
         x += stride * cos ( th * 3.14159265 / 180.0 );
         y += stride * sin ( th * 3.14159265 / 180.0 );
         t++;
@@ -261,7 +261,7 @@ Note: resolution is the number of seconds spend per iteration - simulation time 
 */
 {   
     srand (seed);
-    speed = 40 + rand() % static_cast <int>(20); // speed [40, 60] in mph
+    speed = 40 + rand() % static_cast <int>(20); // speed [40, 60] in kph
     state = 0;
     t_h = 0;
 };
@@ -290,7 +290,7 @@ void taxi::move()
         float pre_y = y;
         
         // srand (seed);
-        float stride = (float)( step * speed ) / 3600;
+        float stride = (float)( step * speed * 1000 ) / 360000; // m per millisecond
         x += stride * cos ( th * 3.14159265 / 180.0 );
         y += stride * sin ( th * 3.14159265 / 180.0 );
         t++;

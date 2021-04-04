@@ -88,21 +88,21 @@ int main()
     vector<privateVehicle> privs;
     for (int i = 0; i < priv_count; i++)
     {
-        privs.push_back(privateVehicle(100, rand()%(agents+100)));
+        privs.push_back(privateVehicle(resolution, rand()%1000));
         // privs[i].track();
     }
     // Taxis
     vector<taxi> taxis;
     for (int i = 0; i < taxi_count; i++)
     {
-        taxis.push_back(taxi(100, rand()%agents));
+        taxis.push_back(taxi(resolution, rand()%1000));
         // taxis[i].track();
     }
     // Buses
     vector<bus> buses;
     for (int i = 0; i < buss_count; i++)
     {
-        buses.push_back(bus(100, rand()%agents));
+        buses.push_back(bus(resolution, rand()%1000));
         // buses[i].track();
     }
 
