@@ -31,7 +31,7 @@ Note: ✔TODO: there is a 5 % chance of a direction change within +/-18 % with e
 {
     // float rad = ( th * 3.14159265 ) / 180.0;
     // cout << rad << " " << step << endl;
-    srand (seed);
+    // srand (seed);
     float stride = (float)step * speed / 3600;
     x += stride * cos ( th * 3.14159265 / 180.0 );
     y += stride * sin ( th * 3.14159265 / 180.0 );
@@ -94,7 +94,7 @@ void privateVehicle::move()
     // Update only if its active
     if ( bounded() == true )
     {
-        srand (seed);
+        // srand (seed);
         float stride = (float)step * speed / 3600;
         x += stride * cos ( th * 3.14159265 / 180.0 );
         y += stride * sin ( th * 3.14159265 / 180.0 );
