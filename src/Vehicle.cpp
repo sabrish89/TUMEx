@@ -37,7 +37,7 @@ Note: ✔TODO: there is a 5 % chance of a direction change within +/-18 % with e
     float pre_x = x;
     float pre_y = y;
 
-    float stride = (float)step * speed * 1000 / 360000;
+    float stride = (float)step * speed * 1000 / 360000; // metres per step milliseconds
     x += stride * cos ( th * 3.14159265 / 180.0 );
     y += stride * sin ( th * 3.14159265 / 180.0 );
     t++;
@@ -122,7 +122,7 @@ void privateVehicle::move()
         float pre_y = y;
         
         // srand (seed);
-        float stride = (float)step * speed * 1000 / 360000; // metres per millisecond
+        float stride = (float)step * speed * 1000 / 360000; // metres per step milliseconds
         x += stride * cos ( th * 3.14159265 / 180.0 );
         y += stride * sin ( th * 3.14159265 / 180.0 );
         t++;
@@ -199,7 +199,7 @@ TODO: Notify steps to be number of milliseconds per step
         float pre_y = y;
         
         // srand (seed);
-        float stride = (float)( step * speed * 1000) / 360000; // m per millisecond
+        float stride = (float)( step * speed * 1000) / 360000; // metres per step milliseconds
         x += stride * cos ( th * 3.14159265 / 180.0 );
         y += stride * sin ( th * 3.14159265 / 180.0 );
         t++;
@@ -290,7 +290,7 @@ void taxi::move()
         float pre_y = y;
         
         // srand (seed);
-        float stride = (float)( step * speed * 1000 ) / 360000; // m per millisecond
+        float stride = (float)( step * speed * 1000 ) / 360000; // metres per step milliseconds
         x += stride * cos ( th * 3.14159265 / 180.0 );
         y += stride * sin ( th * 3.14159265 / 180.0 );
         t++;
